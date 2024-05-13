@@ -81,6 +81,6 @@ While the project aims to provide a comprehensive solution to enhance exam prepa
 
 3. User Commitment and Engagement: The project's impact is dependent on the user's commitment, user's active participation and dedication are crucial for maximizing the benefits.
 
-4. Continuous Updates: The project's exam materials and resources may require regular updates to align with changing newly released exam. 
+4. Continuous Updates: The project's exam materials and resources may require regular updates to align with changing newly released exam.  
 
 It is important to consider these limitations while utilizing the project's resources and understanding that it serves as a supplementary tool rather than a comprehensive solution to all aspects of exam preparation and learning.
