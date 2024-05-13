@@ -10,12 +10,17 @@ class LoginApp extends StatelessWidget {
 
     return Container(
       margin:EdgeInsets.all(20.0),
-      child: Column(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Image.asset('assets/logo.png'),
            email( bloc),
            password(bloc), 
            submitButton( bloc)
-        ],),
+        ],
+        ),
+      )
     );
   } 
   Widget email( Bloc bloc){
