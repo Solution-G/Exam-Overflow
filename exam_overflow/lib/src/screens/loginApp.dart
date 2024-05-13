@@ -17,7 +17,7 @@ class LoginApp extends StatelessWidget {
            submitButton( bloc)
         ],),
     );
-  }
+  } 
   Widget email( Bloc bloc){
     return StreamBuilder(stream: bloc.email,
      builder:(context, snapshot) {

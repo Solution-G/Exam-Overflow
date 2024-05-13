@@ -6,7 +6,7 @@ class App extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Provider(
-       child: MaterialApp(
+       child: MaterialApp(  
       title: 'Bloc login App',
       home:Scaffold(
         body: LoginApp(),
