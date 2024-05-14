@@ -10,7 +10,7 @@ class AlternativeSignIn extends StatelessWidget {
 
    return Scaffold(
       body: Container(
-        color: Colors.grey[900], // Dark background color
+        color:  Colors.grey[900], // Dark background color
         margin:EdgeInsets.all(20.0),
         child: Center(
           child: SingleChildScrollView(
@@ -116,11 +116,7 @@ class AlternativeSignIn extends StatelessWidget {
       builder: (context, snapshot) {
         return ElevatedButton(
       onPressed:(snapshot.hasData)?  bloc.submit : null,
-       child:  Text('SignIn'),
-       style: ElevatedButton.styleFrom(
-       foregroundColor: Colors.white,
-       backgroundColor: Color.fromARGB(255, 142, 3, 3)
-       ),
+       child:  Text('SignIn',style: TextStyle(fontSize: 18.0),),
       );
       }
        ,);

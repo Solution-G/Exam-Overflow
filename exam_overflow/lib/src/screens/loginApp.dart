@@ -99,11 +99,6 @@ class LoginApp extends StatelessWidget {
         return ElevatedButton(
           onPressed:(snapshot.hasData)?  bloc.submit : null,
           child:  Text('Login', style: TextStyle(fontSize: 18.0)), // Make the text a bit larger
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Color.fromARGB(255, 142, 3, 3),
-            padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0), // Add some padding
-          ),
         );
       },
     );
