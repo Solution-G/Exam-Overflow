@@ -8,6 +8,14 @@ class App extends StatelessWidget{
   Widget build(BuildContext context) {
     return Provider(
        child: MaterialApp(
+        theme: ThemeData(
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+        foregroundColor: MaterialStateProperty.all(Colors.black),
+      ),
+    ),
+  ),
       
       title: 'Bloc login App',
      
