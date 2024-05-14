@@ -17,7 +17,7 @@ class App extends StatelessWidget{
     ),
   ),
       
-      title: 'Bloc login App',
+      title: 'ExamOverFlow',
      
       home:Scaffold(
         body: LoginApp(),
