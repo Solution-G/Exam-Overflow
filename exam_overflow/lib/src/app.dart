@@ -17,12 +17,26 @@ class App extends StatelessWidget{
     ),
   ),
       
-      title: 'ExamOverFlow',
+      title: 'Exam OverFlow',
      
-      home:Scaffold(
-        body: LoginApp(),
-       ),
-    
+      home: Scaffold(
+  appBar: PreferredSize(
+    preferredSize: Size.fromHeight(10.0), // Change this value to control the height
+    child: AppBar(
+      title: Text(
+        'WELCOME TO',
+        style: TextStyle(
+          fontSize: 15.0,fontWeight:FontWeight.bold ,
+          color: Colors.white,
+        ),
+      ),
+      backgroundColor: Colors.grey[900], 
+      centerTitle: true, 
+    ),
+  ),
+  body: LoginApp(),
+),
+
         routes: {
          '/alternativeSignIn': (context) => AlternativeSignIn(),
          '/loginApp':(context) => LoginApp(),

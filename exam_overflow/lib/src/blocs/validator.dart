@@ -4,7 +4,7 @@ import 'dart:async';
 mixin Validator {
 final validateName = StreamTransformer<String,String>.fromHandlers(
     handleData: ( name, sink) {
-      if (name.isNotEmpty ) {
+      if (name.isNotEmpty  ) {
         sink.add(name);
       }
     }
