@@ -21,7 +21,7 @@ class LogIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SafeArea(
+      home: Container(
         child: Scaffold(
           // this container will help us to change the background of the app
           body: Container(
@@ -31,47 +31,52 @@ class LogIn extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // This is  where the logo would go
-                  Container(
-                    width: 250,
-                    height: 250,
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        image: const DecorationImage(
-                          image: AssetImage('assets/logo.jpg'),
-                        ),
-                        borderRadius: BorderRadius.circular(300)),
-                  ),
-                  // This is where the input feild would go
-                  // User name input feild
-                  InputFeild(
-                      controller: user_name_controller,
-                      hint: "User Name",
-                      obscureHInt: false),
-                  // Passoword input field
-                  InputFeild(
-                      controller: user_name_controller,
-                      hint: "Password",
-                      obscureHInt: true),
-                  // sign in button
-                  Button(onTap: log_in, input: "Log In"),
-                  // The link Text forwarding to sign up page
-                  const SizedBox(
-                    height: 30,
-                  ),
-
-                  Row(
+            child: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have an account ? "),
-                      Link(input: "Create account", onTap: request_register),
+                    children: <Widget>[
+                      // This is  where the logo would go
+                      Container(
+                        width: 250,
+                        height: 250,
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            image: const DecorationImage(
+                              image: AssetImage('assets/logo.jpg'),
+                            ),
+                            borderRadius: BorderRadius.circular(300)),
+                      ),
+                      // This is where the input feild would go
+                      // User name input feild
+                      InputFeild(
+                          controller: user_name_controller,
+                          hint: "User Name",
+                          obscureHInt: false),
+                      // Passoword input field
+                      InputFeild(
+                          controller: user_name_controller,
+                          hint: "Password",
+                          obscureHInt: true),
+                      // sign in button
+                      Button(onTap: log_in, input: "Log In"),
+                      // The link Text forwarding to sign up page
+                      const SizedBox(
+                        height: 30,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Don't have an account ? "),
+                          Link(
+                              input: "Create account", onTap: request_register),
+                        ],
+                      )
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
             ),
           ),
