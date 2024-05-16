@@ -73,7 +73,7 @@ class LogIn extends StatelessWidget {
                           Link(
                               input: "Create account", onTap: request_register),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
