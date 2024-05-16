@@ -55,7 +55,7 @@ class SignUp extends StatelessWidget {
                           hint: "Email",
                           obscureHInt: false),
 
-                      // this input feild is to accept users verification
+                      // this input feild is to accept users verification 
                       InputFeild(
                           controller: verification_input_controller,
                           hint: "Verification",
@@ -65,7 +65,7 @@ class SignUp extends StatelessWidget {
                           controller: password_input_controller,
                           hint: "Password",
                           obscureHInt: true),
-                      // this is to navigate back to user log in page
+                      // this is to navigate back to user
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
