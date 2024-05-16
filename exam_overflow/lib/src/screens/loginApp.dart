@@ -1,125 +1,82 @@
-
+// ignore: file_names
+import 'package:exam_overflow/src/screens/components.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../blocs/bloc.dart';
-import '../blocs/provider.dart';
+import 'package:flutter/widgets.dart';
 
-class LoginApp extends StatelessWidget {
-  Widget build(context){
+/// This is Log in class responsible for handling the the user Logging in process
+class LogIn extends StatelessWidget {
+  // This will help me to controll the input text because it in different Class called component
+  LogIn({super.key});
+  final user_name_controller = TextEditingController();
+  final user_password_controller = TextEditingController();
 
-    final bloc = Provider.of(context);
+  // This is the function that is going to be called whenever the login button is clicked
 
-    return  Scaffold(
-      
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.0), // Change this value to control the height
-        child: AppBar(
-      title: Text(
-        'EXAM OVERFLOW',
-        style: TextStyle(
-          fontSize: 20.0,fontWeight:FontWeight.bold ,
-          color: Colors.white,
-        ),
-      ),
-      backgroundColor:Colors.grey[900], 
-      centerTitle: true, 
-    ),
-  ),
-     body:SingleChildScrollView(
-     child:Container(
-      height:720,
-      color: Colors.grey[900], // Dark background color
-      margin:EdgeInsets.only(top:50.0 ,left: 20, right: 20),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ClipOval(
-              child: Image.asset('assets/logo.png', width: 140, height: 140),
-            ),
-            SizedBox(height: 40.0), // Add some space
-            email(bloc),
-            SizedBox(height: 20.0), // Add some space
-            password(bloc),
-            SizedBox(height: 20.0), // Add some space
-            submitButton(bloc),
-            SizedBox(height: 20.0), // Add some space
-            Text("Don't have an account?", style: TextStyle(fontSize: 18.0, color: Colors.white)),
-            GestureDetector(
-              onTap: (){
-                Navigator.pushNamed(context,'/alternativeSignIn');
-              },
-              child: Text('Sign up', style: TextStyle(
-                color: const Color.fromARGB(255, 32, 111, 246), // Vibrant accent color
-                backgroundColor: Colors.white,
-                decoration: TextDecoration.underline,
-                fontSize: 18.0, // Make the text a bit larger
-              ),
+  void log_in() {}
+
+  // This function will require register
+  void request_register() {}
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SafeArea(
+        child: Scaffold(
+          // this container will help us to change the background of the app
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
               ),
             ),
-          ],
-        ),
-      )
-    )));
-  }
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  // This is  where the logo would go
+                  Container(
+                    width: 250,
+                    height: 250,
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        image: const DecorationImage(
+                          image: AssetImage('assets/logo.jpg'),
+                        ),
+                        borderRadius: BorderRadius.circular(300)),
+                  ),
+                  // This is where the input feild would go
+                  // User name input feild
+                  InputFeild(
+                      controller: user_name_controller,
+                      hint: "User Name",
+                      obscureHInt: false),
+                  // Passoword input field
+                  InputFeild(
+                      controller: user_name_controller,
+                      hint: "Password",
+                      obscureHInt: true),
+                  // sign in button
+                  Button(onTap: log_in, input: "Log In"),
+                  // The link Text forwarding to sign up page
+                  const SizedBox(
+                    height: 30,
+                  ),
 
-  Widget email(Bloc bloc){
-    return StreamBuilder(
-      stream: bloc.email,
-      builder:(context, snapshot) {
-        return TextField(
-          style: TextStyle(color: Colors.white),
-          onChanged: bloc.changeEmail,
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-          errorText: snapshot.error?.toString(),
-          labelText: '   Email',
-          hintText: "yourEmail@gmail.com",
-          labelStyle: TextStyle(
-          fontSize: 18.0, // Make the label a bit larger
-          color: Color.fromARGB(255, 216, 229, 238), // This changes the color of the label
-        ),
-        hintStyle: TextStyle(
-          fontSize: 16.0,
-          color: const Color.fromARGB(255, 224, 228, 224), // This changes the color of the hint
-        ),
-      ),
-)
-;
-      },
-    );
-  }
-
-  Widget password(Bloc bloc){
-    return StreamBuilder(
-      stream: bloc.password,
-      builder:(context, snapshot) {
-        return TextField(
-          style: TextStyle(color: Colors.white),
-          onChanged: bloc.changePassword,
-          obscureText: true,
-          decoration: InputDecoration(
-            errorText: snapshot.error?.toString(),
-            hintText: 'Password',
-            labelText:'   password',
-            labelStyle: TextStyle(fontSize: 18.0,
-            color: Color.fromARGB(255, 216, 229, 238),), // Make the label a bit larger
-            hintStyle: TextStyle(fontSize: 16.0,
-            color: Color.fromARGB(255, 224, 228, 224),), // Make the hint a bit larger
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have an account ? "),
+                      Link(input: "Create account", onTap: request_register),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
-        );
-      },
-    );
-  }
-
-  Widget submitButton(Bloc bloc){
-    return StreamBuilder(
-      stream:bloc.submitValid ,
-      builder: (context, snapshot) {
-        return ElevatedButton(
-          onPressed:(snapshot.hasData)?  bloc.submit : null,
-          child:  Text('Login', style: TextStyle(fontSize: 18.0)), // Make the text a bit larger
-        );
-      },
+        ),
+      ),
     );
   }
 }
