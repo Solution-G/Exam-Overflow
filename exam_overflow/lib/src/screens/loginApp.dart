@@ -1,87 +1,138 @@
-// ignore: file_names
-import 'package:exam_overflow/src/screens/components.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import '../blocs/bloc.dart';
+import '../blocs/provider.dart';
+import 'components.dart';
 
-/// This is Log in class responsible for handling the the user Logging in process
-class LogIn extends StatelessWidget {
-  // This will help me to controll the input text because it in different Class called component
-  LogIn({super.key});
-  final user_name_controller = TextEditingController();
-  final user_password_controller = TextEditingController();
+class LoginApp extends StatelessWidget {
+  void request_register(){}
+  Widget build(context){
 
-  // This is the function that is going to be called whenever the login button is clicked
+    final bloc = Provider.of(context);
 
-  void log_in() {}
-
-  // This function will require register
-  void request_register() {}
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        child: Scaffold(
-          // this container will help us to change the background of the app
-          body: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/background.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: SafeArea(
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // This is  where the logo would go
-                      Container(
-                        width: 250,
-                        height: 250,
-                        decoration: BoxDecoration(
-                            color: Colors.green,
-                            image: const DecorationImage(
-                              image: AssetImage('assets/logo.jpg'),
-                            ),
-                            borderRadius: BorderRadius.circular(300)),
-                      ),
-                      // This is where the input feild would go
-                      // User name input feild
-                      InputFeild(
-                          controller: user_name_controller,
-                          hint: "User Name",
-                          obscureHInt: false),
-                      // Passoword input field
-                      InputFeild(
-                          controller: user_name_controller,
-                          hint: "Password",
-                          obscureHInt: true),
-                      // sign in button
-                      Button(onTap: log_in, input: "Log In"),
-                      // The link Text forwarding to sign up page
-                      const SizedBox(
-                        height: 30,
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Don't have an account ? "),
-                          Link(
-                              input: "Create account", onTap: request_register),
-                        ],
-                      ),
-                    ],
+    return Container(
+      decoration: const  BoxDecoration(
+        image: DecorationImage(image: AssetImage('assets/background.png'),
+        fit:BoxFit.cover,
+        ) 
+      ),
+      child:Center(
+         child:SingleChildScrollView(
+         child:Column(
+          mainAxisAlignment:MainAxisAlignment.center,
+        children: [
+          //This is where the logo would go.
+           Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        image: const DecorationImage(
+                          image: AssetImage('assets/logo.jpg'),
+                        ),
+                        borderRadius: BorderRadius.circular(360)),
                   ),
-                ),
+           SizedBox(height: 60,),       
+           email( bloc),
+           
+           password(bloc), 
+          SizedBox(height: 30,),
+           submitButton( bloc),
+           SizedBox(height: 30,),
+           Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have an account ? "),
+                      Link(input: "Create account", onTap: request_register),
+                    ],
+                  )
+        ],),))
+    );
+  }
+  Widget email(Bloc bloc){
+  return StreamBuilder(
+    stream: bloc.email,
+    builder: (context, snapshot) {
+      return Container(
+        width: 410,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: TextField(
+            onChanged: bloc.changeEmail,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(100, 86, 132, 186)),
               ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(255, 155, 146, 146)),
+              ),
+              fillColor: snapshot.hasError ? Colors.red[200] : Color.fromARGB(70, 88, 148, 238),
+              filled: true,
+              errorText: snapshot.error?.toString(),
+              labelText: 'Email',
+              hintText: "yourEmail@gmail.com",
             ),
           ),
         ),
-      ),
-    );
+      );
+    },
+  );
+}
+
+ Widget password(Bloc bloc){
+  return StreamBuilder(
+    stream: bloc.password,
+    builder: (context, snapshot) {
+      return Container(
+        width: 410,
+      
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: TextField(
+            onChanged: bloc.changePassword,
+            obscureText: true,
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(100, 86, 132, 186)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(255, 155, 146, 146)),
+              ),
+              fillColor: snapshot.hasError ? Colors.red[200] : Color.fromARGB(70, 88, 148, 238),
+              filled: true,
+              errorText: snapshot.error?.toString(),
+              hintText: 'Password',
+              labelText: 'password',
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+  Widget submitButton(Bloc bloc){
+    return StreamBuilder(
+      stream:bloc.submitValid ,
+      builder: (context, snapshot) {
+        return Container(
+          width:340,
+          height: 55,
+         child: ElevatedButton(
+      onPressed:(snapshot.hasData)?  bloc.submit : null,
+       child:  Text('Log In' ,style:TextStyle(
+        color:Colors.white,fontWeight: FontWeight.bold,
+       ),),
+       style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        padding: const EdgeInsets.symmetric(vertical: 20),
+       disabledBackgroundColor: Color.fromARGB(255, 66, 92, 122),
+       backgroundColor: Color.fromARGB(255, 64, 121, 187)
+       ),
+      ));
+      }
+       ,);
+    
   }
 }

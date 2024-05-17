@@ -1,11 +1,21 @@
-import 'package:exam_overflow/src/screens/landing.dart';
-import 'package:exam_overflow/src/screens/signInApp.dart';
+import 'screens/loginApp.dart';
 import 'package:flutter/material.dart';
-import '/src/screens/loginApp.dart';
+ import 'blocs/provider.dart';
+ 
+ class MyApp extends StatelessWidget {
 
-class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Home();
+  ///build method that returns a new widget tree that can incorporate pices of the
+  ///old widget tree(a provider that contains MaterialApp)
+ build(BuildContext context) {
+    return Provider(
+      
+      child: MaterialApp(
+      title: 'Bloc login App',
+      home:Scaffold(
+        body: LoginApp(),
+       )
+    ),
+    );
   }
 }
