@@ -1,4 +1,4 @@
-**Background:**
+<h1>Background</h1>
 
 Exams are a critical component of assessing students' knowledge and understanding of various subjects. However many students face difficulties in preparing effectively for exams which can lead to unsatisfactory results and even failure. Traditional study methods and resources may not always leads to the specific needs and learning styles of individual students.
 
