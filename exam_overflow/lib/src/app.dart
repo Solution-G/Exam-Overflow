@@ -7,6 +7,14 @@ import '/src/screens/loginApp.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider(child: LogIn());
+    return Provider(
+        child: MaterialApp(
+      home: LogIn(),
+      routes: {
+        '/log_in': (context) => LogIn(),
+        '/sign_up': (context) => SignUp(),
+        '/home': (context) => Home(),
+      },
+    ));
   }
 }

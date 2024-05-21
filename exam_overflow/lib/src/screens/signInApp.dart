@@ -86,7 +86,11 @@ class SignUp extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text("Already have an account ? "),
-                          Link(input: "Log In", onTap: log_in),
+                          Link(
+                              input: "Log In",
+                              onTap: () {
+                                Navigator.pop(context);
+                              }),
                         ],
                       )
                     ],
