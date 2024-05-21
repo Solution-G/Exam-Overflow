@@ -123,8 +123,8 @@ Widget PasswordInput(Bloc bloc) {
 
 Widget NameInput(Bloc bloc) {
   return CustomTextField(
-    stream: bloc.password,
-    onChanged: bloc.changePassword,
+    stream: bloc.name,
+    onChanged: bloc.changeName,
     labelText: 'Full Name',
     obscureText: true,
   );
