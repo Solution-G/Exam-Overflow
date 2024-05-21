@@ -1,38 +1,8 @@
 import 'dart:ffi';
 
+import 'package:exam_overflow/src/blocs/bloc.dart';
 import 'package:flutter/material.dart';
-
-class InputFeild extends StatelessWidget {
-  final TextEditingController controller;
-  final String hint;
-  final bool obscureHInt;
-  const InputFeild(
-      {super.key,
-      required this.controller,
-      required this.hint,
-      required this.obscureHInt});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: TextField(
-        obscureText: this.obscureHInt,
-        decoration: InputDecoration(
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromARGB(100, 86, 132, 186)),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromARGB(255, 155, 146, 146)),
-          ),
-          fillColor: const Color.fromARGB(56, 88, 148, 238),
-          filled: true,
-          hintText: hint,
-        ),
-      ),
-    );
-  }
-}
+import 'package:flutter/foundation.dart';
 
 class Button extends StatelessWidget {
   final Function()? onTap;
@@ -82,4 +52,80 @@ class Link extends StatelessWidget {
       ),
     );
   }
+}
+
+// This is the costum Input class with the validation
+
+class CustomTextField extends StatelessWidget {
+  final Stream<String> stream;
+  final Function(String) onChanged;
+  final String labelText;
+  final TextInputType keyboardType;
+  final bool obscureText;
+
+  const CustomTextField({
+    super.key,
+    required this.stream,
+    required this.onChanged,
+    required this.labelText,
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: stream,
+      builder: (context, snapshot) {
+        return TextField(
+          onChanged: onChanged,
+          keyboardType: keyboardType,
+          obscureText: obscureText,
+          decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Color.fromARGB(100, 86, 132, 186)),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Color.fromARGB(255, 155, 146, 146)),
+            ),
+            fillColor: snapshot.hasError
+                ? Colors.red[200]
+                : const Color.fromARGB(70, 88, 148, 238),
+            filled: true,
+            errorText: snapshot.error?.toString(),
+            labelText: labelText,
+          ),
+        );
+      },
+    );
+  }
+}
+
+// ignore: non_constant_identifier_names
+Widget EmailInput(Bloc bloc) {
+  return CustomTextField(
+    stream: bloc.email,
+    onChanged: bloc.changeEmail,
+    labelText: 'Email',
+    keyboardType: TextInputType.emailAddress,
+  );
+}
+
+// ignore: non_constant_identifier_names
+Widget PasswordInput(Bloc bloc) {
+  return CustomTextField(
+    stream: bloc.password,
+    onChanged: bloc.changePassword,
+    labelText: 'Password',
+    obscureText: true,
+  );
+}
+
+Widget NameInput(Bloc bloc) {
+  return CustomTextField(
+    stream: bloc.password,
+    onChanged: bloc.changePassword,
+    labelText: 'Full Name',
+    obscureText: true,
+  );
 }

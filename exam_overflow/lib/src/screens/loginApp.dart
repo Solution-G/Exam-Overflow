@@ -3,12 +3,13 @@ import 'package:exam_overflow/src/screens/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import '../blocs/provider.dart';
 
 /// This is Log in class responsible for handling the the user Logging in process
 class LogIn extends StatelessWidget {
   // This will help me to controll the input text because it in different Class called component
   LogIn({super.key});
-  final user_name_controller = TextEditingController();
+  final email_controller = TextEditingController();
   final user_password_controller = TextEditingController();
 
   // This is the function that is going to be called whenever the login button is clicked
@@ -16,10 +17,14 @@ class LogIn extends StatelessWidget {
   void log_in() {}
 
   // This function will require register
-  void request_register() {}
+  void request_register() {
+    print("Here");
+  }
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of(context);
+
     return MaterialApp(
       home: Container(
         child: Scaffold(
@@ -37,10 +42,13 @@ class LogIn extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // This is  where the logo would go
+                      //================================//
+                      //This is where the logo would go.//
+                      //================================//
                       Container(
-                        width: 250,
-                        height: 250,
+                        margin: const EdgeInsets.only(bottom: 100),
+                        width: 200,
+                        height: 200,
                         decoration: BoxDecoration(
                             color: Colors.green,
                             image: const DecorationImage(
@@ -49,17 +57,20 @@ class LogIn extends StatelessWidget {
                             borderRadius: BorderRadius.circular(300)),
                       ),
                       // This is where the input feild would go
-                      // User name input feild
-                      InputFeild(
-                          controller: user_name_controller,
-                          hint: "User Name",
-                          obscureHInt: false),
-                      // Passoword input field
-                      InputFeild(
-                          controller: user_name_controller,
-                          hint: "Password",
-                          obscureHInt: true),
+                      // Email name input feild
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        child: EmailInput(bloc),
+                      ),
+
+                      // Password Input
+
+                      Container(
+                          padding: const EdgeInsets.all(20),
+                          child: PasswordInput(bloc)),
+
                       // sign in button
+
                       Button(onTap: log_in, input: "Log In"),
                       // The link Text forwarding to sign up page
                       const SizedBox(
