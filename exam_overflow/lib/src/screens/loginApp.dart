@@ -44,7 +44,7 @@ class LogIn extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.green,
                             image: const DecorationImage(
-                              image: AssetImage('assets/logo.jpg'),
+                              image: AssetImage('assets/logo.png'),
                             ),
                             borderRadius: BorderRadius.circular(300)),
                       ),
