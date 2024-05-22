@@ -17,19 +17,38 @@ class Exam extends StatelessWidget {
             ),
           ),
           child: Scaffold(
+            // This will set the scaffhold background transparent so that the background setted by the container will be visible
             backgroundColor: Colors.transparent,
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  TopTitle(title: "Exam"),
-                  for (int x = 0; x < 20; x++)
-                    MyCard(
-                      title: "Math",
-                      icon_url: 'assets/test.png',
+            // to scroll for available exams Listed
+            body: ListView(
+              children: [
+                TopTitle(title: "Exam"),
+                for (int i = 0; i < 20; i++)
+                  const Card(
+                    // using the list tile for listing the available exams
+                    child: ListTile(
+                      leading: Image(image: AssetImage('assets/test.png')),
+                      title: Text("Math",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20)),
+                      subtitle: Text("Grade 10"),
+                      isThreeLine: true,
+                      trailing: Text("30min"),
                     ),
-                ],
-              ),
+                  ),
+              ],
+
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
+
+              // /// this will help us to iterate over our data and extract info from it and pass it into every single card
+              // children: <Widget>[
+              //   TopTitle(title: "Exam"),
+              //   for (int x = 0; x < 20; x++)
+              //     MyCard(
+              //       title: "Math",
+              //       icon_url: 'assets/test.png',
+              //     ),
+              // ],
             ),
           ),
         ),
@@ -43,6 +62,7 @@ class TakeExam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // the following is to set the background image
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/background_2.png'),
@@ -52,6 +72,9 @@ class TakeExam extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Column(
+          //=============================================//
+          // this will be used to display timer =========//
+          //=============================================//
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
@@ -66,10 +89,13 @@ class TakeExam extends StatelessWidget {
                 ),
               ),
             ),
+            // This will help to scroll down the questions
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  // the question will call the Question Card from the component file
+                  // and give the following as an argument
                   Question(
                     row_no: 1,
                     question: "What is 1 + 1 ?",

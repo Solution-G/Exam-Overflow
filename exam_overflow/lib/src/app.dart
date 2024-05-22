@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
         child: MaterialApp(
-      home: TakeExam(),
+      home: Exam(),
       routes: {
         '/log_in': (context) => LogIn(),
         '/sign_up': (context) => SignUp(),

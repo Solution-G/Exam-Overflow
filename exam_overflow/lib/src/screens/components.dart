@@ -160,68 +160,6 @@ class TopTitle extends StatelessWidget {
     );
   }
 }
-// this widget will be the card to desplay each exam info
-
-class MyCard extends StatelessWidget {
-  final String title;
-  String subtitle;
-  String subtext;
-  final String icon_url;
-  MyCard(
-      {super.key,
-      required this.title,
-      required this.icon_url,
-      this.subtitle = '',
-      this.subtext = ''});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.grey,
-            spreadRadius: .5,
-            blurRadius: 3,
-          )
-        ],
-      ),
-      child: Row(
-        children: [
-          Image(
-            image: AssetImage(icon_url),
-            width: 60,
-            height: 60,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              Text(
-                subtitle,
-                style: const TextStyle(fontSize: 15),
-              ),
-              Text(
-                subtext,
-                style: const TextStyle(fontSize: 12),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 // this is question widget
 
