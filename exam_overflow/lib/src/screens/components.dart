@@ -129,3 +129,165 @@ Widget NameInput(Bloc bloc) {
     obscureText: true,
   );
 }
+// this widget is for the red container with text
+
+class TopTitle extends StatelessWidget {
+  final String title;
+  TopTitle({super.key, required this.title});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 60),
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(255, 193, 72, 95),
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(70), bottomLeft: Radius.circular(70)),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: Offset(0, 10)),
+        ],
+      ),
+      child: Center(
+        child: Text(
+          title,
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.white, fontSize: 40),
+        ),
+      ),
+    );
+  }
+}
+// this widget will be the card to desplay each exam info
+
+class MyCard extends StatelessWidget {
+  final String title;
+  String subtitle;
+  String subtext;
+  final String icon_url;
+  MyCard(
+      {super.key,
+      required this.title,
+      required this.icon_url,
+      this.subtitle = '',
+      this.subtext = ''});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            spreadRadius: .5,
+            blurRadius: 3,
+          )
+        ],
+      ),
+      child: Row(
+        children: [
+          Image(
+            image: AssetImage(icon_url),
+            width: 60,
+            height: 60,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              Text(
+                subtitle,
+                style: const TextStyle(fontSize: 15),
+              ),
+              Text(
+                subtext,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// this is question widget
+
+class Question extends StatelessWidget {
+  final int row_no;
+  final String question;
+  final List<String> choose;
+  final int answer;
+  String selected = 'z';
+  Question(
+      {super.key,
+      required this.row_no,
+      required this.question,
+      required this.choose,
+      required this.answer});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            question,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          RadioListTile(
+            groupValue: selected,
+            onChanged: (value) {
+              selected = value!;
+            },
+            value: 'a',
+            title: Text(choose[0]),
+          ),
+          RadioListTile(
+            groupValue: selected,
+            onChanged: (value) {
+              selected = value!;
+            },
+            value: 'a',
+            title: Text(choose[1]),
+          ),
+          RadioListTile(
+            groupValue: selected,
+            onChanged: (value) {
+              selected = value!;
+            },
+            value: 'a',
+            title: Text(choose[2]),
+          ),
+          RadioListTile(
+            groupValue: selected,
+            onChanged: (value) {
+              selected = value!;
+            },
+            value: 'a',
+            title: Text(choose[3]),
+          ),
+        ],
+      ),
+    );
+  }
+}

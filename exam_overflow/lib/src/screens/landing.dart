@@ -14,7 +14,7 @@ class _HomeState extends State<Home> {
       home: Scaffold(
         drawer: Sidebar(),
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 155, 164, 255),
+          backgroundColor: const Color.fromARGB(255, 155, 164, 255),
           title: const Text(
             "Exam Overflow",
             style: TextStyle(fontSize: 20, color: Colors.white),

@@ -1,4 +1,5 @@
 import 'package:exam_overflow/src/blocs/provider.dart';
+import 'package:exam_overflow/src/screens/ExamPage.dart';
 import 'package:exam_overflow/src/screens/landing.dart';
 import 'package:exam_overflow/src/screens/signInApp.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
         child: MaterialApp(
-      home: LogIn(),
+      home: TakeExam(),
       routes: {
         '/log_in': (context) => LogIn(),
         '/sign_up': (context) => SignUp(),
