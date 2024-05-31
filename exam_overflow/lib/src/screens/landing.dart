@@ -1,7 +1,6 @@
 import 'package:exam_overflow/src/screens/components.dart';
 import 'package:exam_overflow/src/screens/sidebar.dart';
 import 'package:flutter/material.dart';
-import 'package:exam_overflow/src/screens/materialpage.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -43,15 +42,11 @@ class _HomeState extends State<Home> {
                               child: RoundedBlog(
                             title: "Material",
                             image: 'assets/undraw_book_lover_re_rwjy.png',
-                            onpress: () {
-                              
-                            },
+                            onpress: () {},
                           )),
                           Expanded(
                               child: RoundedBlog(
-                                  onpress: () {
-                                    
-                                  },
+                                  onpress: () {},
                                   title: "Study",
                                   image: 'assets/undraw_educator_re_ju47.png')),
                         ],
@@ -60,16 +55,13 @@ class _HomeState extends State<Home> {
                         children: [
                           Expanded(
                               child: RoundedBlog(
-                                onpress: (){
-
-                                },
+                                  onpress: () {},
                                   title: "Exam",
-                                  image: 'assets/undraw_online_test_re_kyfx.png')),
+                                  image:
+                                      'assets/undraw_online_test_re_kyfx.png')),
                           Expanded(
                               child: RoundedBlog(
-                                onpress: (){
-
-                                },
+                                  onpress: () {},
                                   title: "Progress",
                                   image: 'assets/undraw_analysis_dq08.png')),
                         ],
@@ -79,27 +71,26 @@ class _HomeState extends State<Home> {
                         children: [
                           Expanded(
                               child: RoundedBlog(
-                                onpress: (){
-
-                                },
+                                  onpress: () {},
                                   title: "Question",
-                                  image: 'assets/undraw_questions_re_1fy7.png')),
+                                  image:
+                                      'assets/undraw_questions_re_1fy7.png')),
                           Expanded(
                               child: RoundedBlog(
-                                onpress: (){
-
-                                },
+                                  onpress: () {},
                                   title: "Solution",
-                                  image: 'assets/undraw_my_answer_re_k4dv.png')),
+                                  image:
+                                      'assets/undraw_my_answer_re_k4dv.png')),
                         ],
                       ),
                       Row(
                         children: [
                           Expanded(
                               child: RoundedBlog(
-                                onpress: (){},
+                                  onpress: () {},
                                   title: "Give help",
-                                  image: 'assets/undraw_lightbulb_moment_re_ulyo.png')),
+                                  image:
+                                      'assets/undraw_lightbulb_moment_re_ulyo.png')),
                           Expanded(child: Text(""))
                         ],
                       )
