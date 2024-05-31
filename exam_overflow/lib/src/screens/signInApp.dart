@@ -52,17 +52,17 @@ class SignUp extends StatelessWidget {
 
                       Container(
                         padding: const EdgeInsets.all(20),
-                        child: NameInput(bloc),
+                        child: NameInput(bloc, user_name_controller),
                       ),
 
                       Container(
                         padding: const EdgeInsets.all(20),
-                        child: EmailInput(bloc),
+                        child: EmailInput(bloc, email_input_controller),
                       ),
 
                       Container(
                         padding: const EdgeInsets.all(20),
-                        child: PasswordInput(bloc),
+                        child: PasswordInput(bloc, email_input_controller),
                       ),
 
                       // // This input feild is to accept the email of user

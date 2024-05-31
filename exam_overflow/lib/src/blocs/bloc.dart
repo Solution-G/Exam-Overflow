@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:flutter/gestures.dart';
-
 import 'validator.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -15,7 +13,7 @@ class Bloc extends Object with Validator {
     String name = _name.value;
     String mail = _email.value;
     String pss = _password.value;
-    print('Your email is : $mail and your password is: $pss');
+
   }
 
   Stream<String> get name => _name.stream.transform(validateName);

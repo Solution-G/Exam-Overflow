@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:exam_overflow/src/blocs/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 class Button extends StatelessWidget {
   final Function()? onTap;
@@ -62,15 +59,16 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final TextInputType keyboardType;
   final bool obscureText;
+  final controller;
 
-  const CustomTextField({
-    super.key,
-    required this.stream,
-    required this.onChanged,
-    required this.labelText,
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
-  });
+  const CustomTextField(
+      {super.key,
+      required this.stream,
+      required this.onChanged,
+      required this.labelText,
+      this.keyboardType = TextInputType.text,
+      this.obscureText = false,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +76,7 @@ class CustomTextField extends StatelessWidget {
       stream: stream,
       builder: (context, snapshot) {
         return TextField(
+          controller: controller,
           onChanged: onChanged,
           keyboardType: keyboardType,
           obscureText: obscureText,
@@ -102,31 +101,34 @@ class CustomTextField extends StatelessWidget {
 }
 
 // ignore: non_constant_identifier_names
-Widget EmailInput(Bloc bloc) {
+Widget EmailInput(Bloc bloc, controller) {
   return CustomTextField(
     stream: bloc.email,
     onChanged: bloc.changeEmail,
     labelText: 'Email',
     keyboardType: TextInputType.emailAddress,
+    controller: controller,
   );
 }
 
 // ignore: non_constant_identifier_names
-Widget PasswordInput(Bloc bloc) {
+Widget PasswordInput(Bloc bloc, controller) {
   return CustomTextField(
     stream: bloc.password,
     onChanged: bloc.changePassword,
     labelText: 'Password',
     obscureText: true,
+    controller: controller,
   );
 }
 
-Widget NameInput(Bloc bloc) {
+Widget NameInput(Bloc bloc, controller) {
   return CustomTextField(
     stream: bloc.password,
     onChanged: bloc.changePassword,
     labelText: 'Full Name',
     obscureText: true,
+    controller: controller,
   );
 }
 // this widget is for the red container with text

@@ -37,18 +37,6 @@ class Exam extends StatelessWidget {
                     ),
                   ),
               ],
-
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-
-              // /// this will help us to iterate over our data and extract info from it and pass it into every single card
-              // children: <Widget>[
-              //   TopTitle(title: "Exam"),
-              //   for (int x = 0; x < 20; x++)
-              //     MyCard(
-              //       title: "Math",
-              //       icon_url: 'assets/test.png',
-              //     ),
-              // ],
             ),
           ),
         ),

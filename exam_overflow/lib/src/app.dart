@@ -10,11 +10,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
         child: MaterialApp(
-      home: Exam(),
+      home: LogIn(),
       routes: {
         '/log_in': (context) => LogIn(),
         '/sign_up': (context) => SignUp(),
         '/home': (context) => Home(),
+        '/Exam': (context) => Exam(),
       },
     ));
   }
