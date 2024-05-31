@@ -51,6 +51,48 @@ class Link extends StatelessWidget {
   }
 }
 
+// this class is used for the blog creation in the landing page
+class RoundedBlog extends StatelessWidget {
+  final String title;
+  final VoidCallback onpress;
+  final String image;
+  const RoundedBlog({super.key, required this.title, required this.image , required this.onpress});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+
+      children: [
+        TextButton(
+          onPressed: onpress,
+          child: Container(
+            height: 160,
+            width: 200,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                color:const Color.fromARGB(66, 28, 9, 9),
+                offset: Offset(0 , 4),
+                blurRadius: 20.0,
+                blurStyle: BlurStyle.outer
+              )
+              ],
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.all(20),
+            child: Image(image: AssetImage(image)),
+          ),
+        ),
+        Text(
+          title,
+         
+        )
+
+      ],
+    );
+  }
+}
+
 // This is the costum Input class with the validation
 
 class CustomTextField extends StatelessWidget {
@@ -124,8 +166,8 @@ Widget PasswordInput(Bloc bloc, controller) {
 
 Widget NameInput(Bloc bloc, controller) {
   return CustomTextField(
-    stream: bloc.password,
-    onChanged: bloc.changePassword,
+    stream: bloc.name,
+    onChanged: bloc.changeName,
     labelText: 'Full Name',
     obscureText: true,
     controller: controller,
