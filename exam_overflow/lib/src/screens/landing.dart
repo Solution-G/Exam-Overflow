@@ -42,7 +42,9 @@ class _HomeState extends State<Home> {
                               child: RoundedBlog(
                             title: "Material",
                             image: 'assets/undraw_book_lover_re_rwjy.png',
-                            onpress: () {},
+                            onpress: () {
+                              Navigator.pushNamed(context, '/material');
+                            },
                           )),
                           Expanded(
                               child: RoundedBlog(

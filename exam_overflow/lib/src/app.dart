@@ -1,6 +1,7 @@
 import 'package:exam_overflow/src/blocs/provider.dart';
 import 'package:exam_overflow/src/screens/ExamPage.dart';
 import 'package:exam_overflow/src/screens/landing.dart';
+import 'package:exam_overflow/src/screens/material.dart';
 import 'package:exam_overflow/src/screens/signInApp.dart';
 import 'package:flutter/material.dart';
 import '/src/screens/loginApp.dart';
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
         '/log_in': (context) => LogIn(),
         '/sign_up': (context) => SignUp(),
         '/home': (context) => Home(),
-        '/Exam': (context) => Exam(),
+        '/exam': (context) => Exam(),
+        '/material': (context) => MyMaterial(),
       },
     ));
   }
