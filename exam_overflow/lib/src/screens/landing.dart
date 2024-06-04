@@ -22,83 +22,69 @@ class _HomeState extends State<Home> {
           ),
         ),
         body: Container(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/background_2.png'),
-                fit: BoxFit.cover,
-              ),
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/background_2.png'),
+              fit: BoxFit.cover,
             ),
-            child: SafeArea(
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Every single row is expanded into two componenets
-                      Row(
-                        children: [
-                          Expanded(
-                              child: RoundedBlog(
-                            title: "Material",
-                            image: 'assets/undraw_book_lover_re_rwjy.png',
-                            onpress: () {
-                              Navigator.pushNamed(context, '/material');
-                            },
-                          )),
-                          Expanded(
-                              child: RoundedBlog(
-                                  onpress: () {},
-                                  title: "Study",
-                                  image: 'assets/undraw_educator_re_ju47.png')),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: RoundedBlog(
-                                  onpress: () {},
-                                  title: "Exam",
-                                  image:
-                                      'assets/undraw_online_test_re_kyfx.png')),
-                          Expanded(
-                              child: RoundedBlog(
-                                  onpress: () {},
-                                  title: "Progress",
-                                  image: 'assets/undraw_analysis_dq08.png')),
-                        ],
-                      ),
-
-                      Row(
-                        children: [
-                          Expanded(
-                              child: RoundedBlog(
-                                  onpress: () {},
-                                  title: "Question",
-                                  image:
-                                      'assets/undraw_questions_re_1fy7.png')),
-                          Expanded(
-                              child: RoundedBlog(
-                                  onpress: () {},
-                                  title: "Solution",
-                                  image:
-                                      'assets/undraw_my_answer_re_k4dv.png')),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: RoundedBlog(
-                                  onpress: () {},
-                                  title: "Give help",
-                                  image:
-                                      'assets/undraw_lightbulb_moment_re_ulyo.png')),
-                          Expanded(child: Text(""))
-                        ],
-                      )
+          ),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  // Every single row is expanded into two componenets
+                  Row(
+                    children: [
+                      Expanded(
+                          child: RoundedBlog(
+                        title: "Material",
+                        image: 'assets/undraw_book_lover_re_rwjy.png',
+                        onpress: () {
+                          Navigator.pushNamed(context, '/material');
+                        },
+                      )),
+                      Expanded(
+                          child: RoundedBlog(
+                              onpress: () {},
+                              title: "Give help",
+                              image:
+                                  'assets/undraw_lightbulb_moment_re_ulyo.png')),
                     ],
                   ),
-                ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: RoundedBlog(
+                              onpress: () {
+                                Navigator.pushNamed(context, '/exam');
+                              },
+                              title: "Exam",
+                              image: 'assets/undraw_online_test_re_kyfx.png')),
+                      Expanded(
+                          child: RoundedBlog(
+                              onpress: () {},
+                              title: "Progress",
+                              image: 'assets/undraw_analysis_dq08.png')),
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      Expanded(
+                          child: RoundedBlog(
+                              onpress: () {},
+                              title: "Question",
+                              image: 'assets/undraw_questions_re_1fy7.png')),
+                      Expanded(
+                          child: RoundedBlog(
+                              onpress: () {},
+                              title: "Solution",
+                              image: 'assets/undraw_my_answer_re_k4dv.png')),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

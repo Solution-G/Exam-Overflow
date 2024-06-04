@@ -1,10 +1,11 @@
 class Database {
-  static const String database = 'http://192.168.160.1/examoverflow';
+  static const String database = 'http://172.29.112.1/examoverflow';
   static const String actions = '$database/actions';
   // these are the file we are gonna be using for connection
 
   static const String log_in = '$actions/log_in.php';
   static const String load_material = '$actions/load_material.php';
+  static const String load_exam = '$actions/load_exam.php';
 
   // This is are Database Connection errors
   static Map<int, String> errors_and_message = {

@@ -1,8 +1,32 @@
+import 'dart:convert';
+
+import 'package:exam_overflow/src/database/database_connection.dart';
 import 'package:exam_overflow/src/screens/components.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
-class Exam extends StatelessWidget {
+class Exam extends StatefulWidget {
   Exam({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return MyExam();
+  }
+}
+
+class MyExam extends State<Exam> {
+  List<dynamic> exams = [];
+  bool display = false;
+  Map<int, String> checked = {};
+  Future<List<dynamic>> load_exams() async {
+    var result =
+        await http.post(Uri.parse(Database.load_exam), body: {"grade": "12"});
+    if (result.statusCode == 200) {
+      exams = jsonDecode(result.body);
+    } else {}
+    return [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,81 +43,108 @@ class Exam extends StatelessWidget {
           child: Scaffold(
             // This will set the scaffhold background transparent so that the background setted by the container will be visible
             backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: Text('Exam', style: TextStyle(color: Colors.white)),
+              backgroundColor: const Color.fromARGB(255, 155, 164, 255),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor: WidgetStateColor.transparent,
+                      elevation: WidgetStateProperty.all(0)),
+                  child: Icon(Icons.close),
+                )
+              ],
+              leading: Center(
+                  child: Text(
+                "00:00",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              )),
+              shadowColor: Colors.black,
+            ),
+
             // to scroll for available exams Listed
-            body: ListView(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                TopTitle(title: "Exam"),
-                for (int i = 0; i < 20; i++)
-                  const Card(
-                    // using the list tile for listing the available exams
-                    child: ListTile(
-                      leading: Image(image: AssetImage('assets/test.png')),
-                      title: Text("Math",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
-                      subtitle: Text("Grade 10"),
-                      isThreeLine: true,
-                      trailing: Text("30min"),
+                Expanded(
+                  child: FutureBuilder<List<dynamic>>(
+                    future: load_exams(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Icon(Icons.refresh),
+                              ),
+                              Text("Refresh")
+                            ],
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                          itemCount: exams.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Card(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: ListTile(
+                                    title: Text(exams[index]['question']),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        for (String choise in exams[index]
+                                                ["choises"]
+                                            .split('##'))
+                                          RadioListTile<String>(
+                                            value: choise,
+                                            title: Text(choise),
+                                            groupValue: checked[index] ?? "",
+                                            onChanged: (value) {
+                                              setState(() {
+                                                checked[index] = value!;
+                                              });
+                                            },
+                                          ),
+                                      ],
+                                    ),
+                                    trailing: Text(
+                                      exams[index]['difficulty'],
+                                      style: TextStyle(color: Colors.blue),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.blue)),
+                    child: Text(
+                      "Submit",
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
+                ),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-// This is a page that is going to be helping as exam hall
-class TakeExam extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // the following is to set the background image
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/background_2.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          //=============================================//
-          // this will be used to display timer =========//
-          //=============================================//
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 155, 164, 255),
-              ),
-              height: 100,
-              child: const Center(
-                child: Text(
-                  "30:00",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-            ),
-            // This will help to scroll down the questions
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // the question will call the Question Card from the component file
-                  // and give the following as an argument
-                  Question(
-                    row_no: 1,
-                    question: "What is 1 + 1 ?",
-                    choose: const ["What the", "Yeah men", "Lets see", "Woow"],
-                    answer: 8,
-                  ),
-                ],
-              ),
-            )
-          ],
         ),
       ),
     );
