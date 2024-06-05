@@ -6,7 +6,10 @@ import 'package:exam_overflow/src/screens/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MyMaterial extends StatefulWidget {
   MyMaterial({super.key});
@@ -21,6 +24,7 @@ class MyMaterial extends StatefulWidget {
 class MyMaterialView extends State<MyMaterial> {
   List<dynamic> materials = [];
   Map<int, bool> downloading = {};
+  String download_dir = '/storage/emulated/0/Downloads/';
 
   @override
   void initState() {
@@ -28,10 +32,24 @@ class MyMaterialView extends State<MyMaterial> {
     loadMaterials();
   }
 
+  Future<bool> permissionRequest(Permission permission) async {
+    try {
+      final result = await permission.request();
+
+      if (result.isGranted) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<List<dynamic>> loadMaterials() async {
-    var result = await http.post(Uri.parse(Database.load_material),
-        body: {'grade': '12', 'subject': 'math'});
+    var result = await http.post(Uri.parse(Database.load_material), body: {});
     if (result.statusCode == 200) {
+      print(result.body);
       materials = jsonDecode(result.body);
       return materials;
     } else {}
@@ -88,24 +106,45 @@ class MyMaterialView extends State<MyMaterial> {
                                                 255, 193, 72, 95)),
                                       ),
                                       subtitle: Text(materials[index]['grade']),
-                                      trailing: downloading[index] ?? false ? CircularProgressIndicator() : ElevatedButton(
-                                        onPressed: () {
-                                          FileDownloader.downloadFile(
-                                              url: materials[index]['link'],
-                                              onProgress: (value, progress) {
-                                                setState(() {
-                                                  downloading[index] = true;
-                                                });
+                                      trailing: downloading[index] ?? false
+                                          ? CircularProgressIndicator()
+                                          : ElevatedButton(
+                                              onPressed: () async {
+                                                if (await permissionRequest(
+                                                    Permission.storage)) {
+                                                  setState(() {
+                                                    downloading[index] = true;
+
+                                                    FileDownloader.downloadFile(
+                                                        url: materials[index]
+                                                            ['link'],
+                                                        onProgress:
+                                                            (value, progress) {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(SnackBar(
+                                                                  content: Text(
+                                                                      "Donwload has started")));
+                                                        },
+                                                        onDownloadCompleted:
+                                                            (val) {
+                                                          setState(() {
+                                                            downloading[index] =
+                                                                false;
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    "Completed");
+                                                          });
+                                                        });
+                                                  });
+                                                } else {
+                                                  Fluttertoast.showToast(
+                                                      msg:
+                                                          'Permission is required');
+                                                }
                                               },
-                                              onDownloadCompleted:
-                                                  (val) {
-                                                setState(() {
-                                                  downloading[index] = false;
-                                                });
-                                              });
-                                        },
-                                        child: Icon(Icons.download),
-                                      ),
+                                              child: Icon(Icons.download),
+                                            ),
                                     ),
                                   ),
                                 );
