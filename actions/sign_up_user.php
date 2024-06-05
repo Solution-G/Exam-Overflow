@@ -2,12 +2,14 @@
     include '../connection.php';
     include '../error_type.php';
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if (!array_key_exists("student_email", $_POST) || !array_key_exists("student_password", $_POST)){
+        if (!array_key_exists('student_grade', $_POST)  ||!array_key_exists('student_name', $_POST)  || !array_key_exists("student_email", $_POST) || !array_key_exists("student_password", $_POST)){
             echo json_encode(array("error"=>[$UNSET_VARIABLE, "Set The variables"]));
             die();
         }
+        $student_name = $_POST['student_name'];
         $student_email = $_POST['student_email'];
         $student_password = $_POST['student_password'];
+        $student_grade = $_POST['student_grade'];
         /**
          * 
          * The Json will have the following return
@@ -22,15 +24,15 @@
             die();
         }
 
-        $check_existance_of_student_sql = "SELECT student_email, student_password, student_grade FROM user_table WHERE student_email = '$student_email' AND student_password = '$student_password'";
+        $check_email_unique = "SELECT * FROM user_table where student_email = $student_email";
 
         $result = $connect->query($check_existance_of_student_sql);
         if($result){
             if ( $result->num_rows > 0 ){
-                $data = $result->fetch_assoc();
-                echo json_encode(array("data"=> $data));
+                echo json_encode(array("error"=> [$EMAIL_EXISTS, "Email already in use"]));
+
             }else{
-                echo json_encode(array("error"=>[$STUDENT_NOT_FOUND_ERROR, "No Such student"]));
+                $add_user = "INSERT INTO user_table(student_name, student_grade, student_password, student_email) VALUES('$student_name', '$student_grade', $student_password', '$student_email')";
             }
         }else{
             echo json_encode(array("error"=>[$DATABASE_ERROR, "Query Error" . $connect->error]));
@@ -40,4 +42,3 @@
     }else{
         echo json_encode(array("error"=>[$NO_POST_REQUESTED, "No Post Request"]));
     }
-

@@ -5,4 +5,4 @@
     $user_password = '';
     $database_name = 'exam_overflow';
 
-    $connect = new mysqli($server_name, $user_name, $user_name, $user_password, $database_name);
+    $connect = new mysqli($server_name, $user_name, $user_password, $database_name);
