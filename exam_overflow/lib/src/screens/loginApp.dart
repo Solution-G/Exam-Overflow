@@ -100,6 +100,8 @@ class LogIn extends StatelessWidget {
                     height: 30,
                   ),
 
+                  
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

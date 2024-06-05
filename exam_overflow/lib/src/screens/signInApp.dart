@@ -65,23 +65,9 @@ class SignUp extends StatelessWidget {
                         child: PasswordInput(bloc, email_input_controller),
                       ),
 
-                      // // This input feild is to accept the email of user
-                      // InputFeild(
-                      //     controller: email_input_controller,
-                      //     hint: "Email",
-                      //     obscureHInt: false),
+                      
+                      Button(onTap: () {}, input: "Sign Up"),
 
-                      // // this input feild is to accept users verification
-                      // InputFeild(
-                      //     controller: verification_input_controller,
-                      //     hint: "Verification",
-                      //     obscureHInt: false),
-                      // // This input feild is for password
-                      // InputFeild(
-                      //     controller: password_input_controller,
-                      //     hint: "Password",
-                      //     obscureHInt: true),
-                      // this is to navigate back to user
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
