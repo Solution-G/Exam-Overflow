@@ -1,8 +1,13 @@
 // ignore: file_names
+import 'dart:convert';
+
 import 'package:exam_overflow/src/blocs/provider.dart';
+import 'package:exam_overflow/src/database/database_connection.dart';
 import 'package:exam_overflow/src/screens/components.dart';
 import 'package:exam_overflow/src/screens/loginApp.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});
@@ -10,7 +15,26 @@ class SignUp extends StatelessWidget {
   final email_input_controller = TextEditingController();
   final verification_input_controller = TextEditingController();
   final password_input_controller = TextEditingController();
-  void log_in() {}
+  Future<List<dynamic>> registerOnMysql(
+      String name, String email, String password) async {
+    Map<String, dynamic> result = {};
+    try {
+      final registry = await http.post(Uri.parse(Database.sign_up),
+          body: {'name': name, 'email': email, "password": password});
+      if (registry.statusCode == 200) {
+        print(registry.body);
+        result = jsonDecode(registry.body);
+        if (result.containsKey("error")) {
+          return [false, Database.errors_and_message[result['error'][0]]];
+        }
+        return [true, ''];
+      } else {
+        return [false, Database.errors_and_message[102]];
+      }
+    } catch (e) {
+      return [false, "Connection error"];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +86,23 @@ class SignUp extends StatelessWidget {
 
                       Container(
                         padding: const EdgeInsets.all(20),
-                        child: PasswordInput(bloc, email_input_controller),
+                        child: PasswordInput(bloc, password_input_controller),
                       ),
 
-                      
-                      Button(onTap: () {}, input: "Sign Up"),
+                      Button(
+                          onTap: () async {
+                            var request = await registerOnMysql(
+                                user_name_controller.text,
+                                email_input_controller.text,
+                                password_input_controller.text);
+                            if (request[0] == true) {
+                              Fluttertoast.showToast(msg: "Success !");
+                              Navigator.pop(context);
+                            } else {
+                              Fluttertoast.showToast(msg: request[1]);
+                            }
+                          },
+                          input: "Sign Up"),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

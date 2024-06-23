@@ -1,11 +1,14 @@
 class Database {
-  static const String database = 'http://172.30.208.1/examoverflow';
+  static const String database = 'http://172.26.112.1:80/examoverflow';
   static const String actions = '$database/actions';
   // these are the file we are gonna be using for connection
 
   static const String log_in = '$actions/log_in.php';
   static const String load_material = '$actions/load_material.php';
   static const String load_exam = '$actions/load_exam.php';
+  static const String sign_up = '$actions/sign_up.php';
+  static const String upload_question = '$actions/question.php';
+  static const String load_question = '$actions/load_question.php';
 
   // This is are Database Connection errors
   static Map<int, String> errors_and_message = {
@@ -13,7 +16,8 @@ class Database {
     101: "No Such User, please try again!",
     102: "Server is down, please try again!",
     103: "Insert appropriate inputs !",
-    104: "Check your inputs please!"
+    104: "Check your inputs please!",
+    105: "Email already exist !"
   };
 
   /**

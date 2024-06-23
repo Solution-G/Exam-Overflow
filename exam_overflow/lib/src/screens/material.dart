@@ -47,12 +47,16 @@ class MyMaterialView extends State<MyMaterial> {
   }
 
   Future<List<dynamic>> loadMaterials() async {
-    var result = await http.post(Uri.parse(Database.load_material), body: {});
-    if (result.statusCode == 200) {
-      print(result.body);
-      materials = jsonDecode(result.body);
-      return materials;
-    } else {}
+    try {
+      var result = await http.post(Uri.parse(Database.load_material), body: {});
+      if (result.statusCode == 200) {
+        print(result.body);
+        materials = jsonDecode(result.body);
+        return materials;
+      } else {}
+    } catch (e) {
+      return [];
+    }
     return [];
   }
 

@@ -6,34 +6,84 @@ import 'package:exam_overflow/src/database/database_connection.dart';
 import 'package:exam_overflow/src/screens/components.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../blocs/provider.dart';
 import 'package:http/http.dart' as http;
 
+class LogIn extends StatefulWidget {
+  const LogIn({super.key});
+  @override
+  _LogIn createState() => _LogIn();
+}
+
 /// This is Log in class responsible for handling the the user Logging in process
-class LogIn extends StatelessWidget {
+class _LogIn extends State<LogIn> {
   // This will help me to controll the input text because it in different Class called component
-  LogIn({super.key});
+
   // ignore: non_constant_identifier_names
   final email_controller = TextEditingController();
   // ignore: non_constant_identifier_names
   final user_password_controller = TextEditingController();
+  Future<SharedPreferences> sharedPref = SharedPreferences.getInstance();
+  bool loggedIn = false;
 
   // This is the function that is going to be called whenever the login button is clicked
   Future<List> log_in(String email, String password) async {
-    final result = await http.post(Uri.parse(Database.log_in),
-        body: {"student_email": email, "student_password": password});
+    try {
+      final result = await http.post(Uri.parse(Database.log_in),
+          body: {"student_email": email, "student_password": password});
 
-    if (result.statusCode == 200) {
-      Map<String, dynamic> value = jsonDecode(result.body);
-      if (value.containsKey('data')) {
-        return [true, value['data']];
+      if (result.statusCode == 200) {
+        print(result.body);
+        Map<String, dynamic> value = jsonDecode(result.body);
+        if (value.containsKey('data')) {
+          saveData("email", email);
+          saveData("pass_key", password);
+          saveData("id", value["data"]["user_id"]);
+          print(
+              "--------------Saved ---------------------------------------------");
+          return [true, value['data']];
+        }
+
+        return [false, Database.errors_and_message[value['error'][0]]];
+      } else {
+        return [false, "Server is connected!"];
       }
-      print(value);
-      return [false, Database.errors_and_message[value['error'][0]]];
-    } else {
-      return [false, "Server is connected!"];
+    } catch (e) {
+      return [false, "Connection error!"];
     }
   }
+
+  Future<void> saveData(String key, String data) async {
+    SharedPreferences myShared = await sharedPref;
+
+    await myShared.setString(key, data);
+  }
+
+  Future<void> alreadyLoggedIn(BuildContext context) async {
+    SharedPreferences shP = await sharedPref;
+    print("--------------loaded-------------------------");
+    String? email = shP.getString("email");
+    String? password = shP.getString("pass_key");
+    if (email == null ||
+        email.isEmpty ||
+        password == null ||
+        password.isEmpty) {
+      return;
+    }
+    var request = await log_in(email, password);
+    if (request[0]) {
+      loggedIn = true;
+      Navigator.pushNamed(context, '/home');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    alreadyLoggedIn(context);
+  }
+
   // ignore: non_constant_identifier_names
 
   @override
@@ -99,8 +149,6 @@ class LogIn extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-
-                  
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -47,7 +47,9 @@ class _HomeState extends State<Home> {
                       )),
                       Expanded(
                           child: RoundedBlog(
-                              onpress: () {},
+                              onpress: () {
+                                Navigator.pushNamed(context, '/help');
+                              },
                               title: "Give help",
                               image:
                                   'assets/undraw_lightbulb_moment_re_ulyo.png')),
@@ -74,7 +76,9 @@ class _HomeState extends State<Home> {
                     children: [
                       Expanded(
                           child: RoundedBlog(
-                              onpress: () {},
+                              onpress: () {
+                                Navigator.pushNamed(context, '/question');
+                              },
                               title: "Question",
                               image: 'assets/undraw_questions_re_1fy7.png')),
                       Expanded(

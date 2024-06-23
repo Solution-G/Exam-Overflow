@@ -167,7 +167,7 @@ Widget NameInput(Bloc bloc, controller) {
     stream: bloc.name,
     onChanged: bloc.changeName,
     labelText: 'Full Name',
-    obscureText: true,
+    obscureText: false,
     controller: controller,
   );
 }
@@ -203,70 +203,34 @@ class TopTitle extends StatelessWidget {
   }
 }
 
-// this is question widget
-
-class Question extends StatelessWidget {
-  final int row_no;
-  final String question;
-  final List<String> choose;
-  final int answer;
-  String selected = 'z';
-  Question(
+class Input extends StatelessWidget {
+  final String label;
+  final controller;
+  final int maxLine;
+  Input(
       {super.key,
-      required this.row_no,
-      required this.question,
-      required this.choose,
-      required this.answer});
-
+      required this.label,
+      required this.controller,
+      required this.maxLine});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            question,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: TextField(
+        maxLines: this.maxLine,
+        controller: controller,
+        obscureText: false,
+        decoration: InputDecoration(
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(100, 86, 132, 186)),
           ),
-          RadioListTile(
-            groupValue: selected,
-            onChanged: (value) {
-              selected = value!;
-            },
-            value: 'a',
-            title: Text(choose[0]),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(255, 155, 146, 146)),
           ),
-          RadioListTile(
-            groupValue: selected,
-            onChanged: (value) {
-              selected = value!;
-            },
-            value: 'a',
-            title: Text(choose[1]),
-          ),
-          RadioListTile(
-            groupValue: selected,
-            onChanged: (value) {
-              selected = value!;
-            },
-            value: 'a',
-            title: Text(choose[2]),
-          ),
-          RadioListTile(
-            groupValue: selected,
-            onChanged: (value) {
-              selected = value!;
-            },
-            value: 'a',
-            title: Text(choose[3]),
-          ),
-        ],
+          fillColor: const Color.fromARGB(70, 88, 148, 238),
+          filled: true,
+          labelText: label,
+        ),
       ),
     );
   }
