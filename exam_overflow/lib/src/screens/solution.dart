@@ -12,17 +12,17 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Help extends StatefulWidget {
-  Help({super.key});
+class Solution extends StatefulWidget {
+  Solution({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _Help();
+    return _Solution();
   }
 }
 
 // ignore: must_be_immutable
-class _Help extends State<Help> {
+class _Solution extends State<Solution> {
   List<dynamic> questions = [];
   String? user_id = "-1";
 
@@ -42,9 +42,8 @@ class _Help extends State<Help> {
 
   Future<List<dynamic>> loadQuestions() async {
     try {
-      var result = await http.post(Uri.parse(Database.load_question), body: {
-        "id": user_id,
-      });
+      var result = await http.post(Uri.parse(Database.load_question),
+          body: {"id": user_id, "equal": "yes"});
       if (result.statusCode == 200) {
         print("--------------------val--------------------");
         print(result.body);
@@ -138,12 +137,12 @@ class _Help extends State<Help> {
                                                 255, 85, 136, 212),
                                           ),
                                           onPressed: () {
-                                            Navigator.pushNamed(
-                                                context, '/give_answer',
-                                                arguments: questions[index]);
+                                            //Navigator.pushNamed(
+                                            //   context, '/give_answer',
+                                            //  arguments: questions[index]);
                                           },
                                           child: Text(
-                                            "answer",
+                                            "See",
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),

@@ -7,6 +7,7 @@ import 'package:exam_overflow/src/screens/give_help.dart';
 import 'package:exam_overflow/src/screens/landing.dart';
 import 'package:exam_overflow/src/screens/material.dart';
 import 'package:exam_overflow/src/screens/signInApp.dart';
+import 'package:exam_overflow/src/screens/solution.dart';
 import 'package:flutter/material.dart';
 import '/src/screens/loginApp.dart';
 
@@ -35,9 +36,12 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (context) => Question());
             case '/help':
               return MaterialPageRoute(builder: (context) => Help());
+            case '/solution':
+              return MaterialPageRoute(builder: (context) => Solution());
             case '/give_answer':
               final args = settings.arguments as Map<String, dynamic>;
-              return MaterialPageRoute(builder: (context) => Answer(args: args));
+              return MaterialPageRoute(
+                  builder: (context) => Answer(args: args));
             default:
               return null;
           }

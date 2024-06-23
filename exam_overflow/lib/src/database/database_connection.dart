@@ -10,7 +10,7 @@ class Database {
   static const String upload_question = '$actions/question.php';
   static const String load_question = '$actions/load_question.php';
   static const String load_answers = "$actions/load_answers.php";
-
+  static const String give_answer = "$actions/give_answer.php";
   // This is are Database Connection errors
   static Map<int, String> errors_and_message = {
     100: "There has been a SQL error, try again!",
@@ -19,10 +19,12 @@ class Database {
     103: "Insert appropriate inputs !",
     104: "Check your inputs please!",
     105: "Email already exist !",
-    106: "Connection Problem"
+    106: "Connection Problem",
+    107: "Make sure you logged in!"
   };
 
   static int CONNECTION_PROBLEM = 106;
+  static int CANNOT_FOUND_USER = 107;
   /**
    * This is what the php code look like
    * $DATABASE_ERROR = 100;//this happens when the database sql having problem

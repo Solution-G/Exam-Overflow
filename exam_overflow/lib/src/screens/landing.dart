@@ -85,7 +85,9 @@ class _HomeState extends State<Home> {
                               image: 'assets/undraw_questions_re_1fy7.png')),
                       Expanded(
                           child: RoundedBlog(
-                              onpress: () {},
+                              onpress: () {
+                                Navigator.pushNamed(context, '/solution');
+                              },
                               title: "Solution",
                               image: 'assets/undraw_my_answer_re_k4dv.png')),
                     ],
