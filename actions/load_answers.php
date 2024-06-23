@@ -8,19 +8,13 @@
                 die();
             }
             if(array_key_exists("id", $_POST)){
-                $user_id = (int)$_POST['id'];
-                if (!array_key_exists("equal", $_POST)){
+                $id = $_POST['id'];
+                $load_available_material = "SELECT users_table.student_name, answer.answer FROM answer LEFT JOIN users_table ON answer.user_id = users_table.user_id WHERE answer.id = $id; ";
 
-                    $load_question = "SELECT id, user_id, topic, subject, question FROM questions WHERE  user_id != $user_id";
-                }else{
-                    $load_question = "SELECT id, user_id, topic, subject, question FROM questions WHERE  user_id = $user_id";
-                }
-
-                $result = $connect->query($load_question);
+                $result = $connect->query($load_available_material);
                 $list = array();
                 if($result){
                     while ($row=mysqli_fetch_assoc($result)){
-                        
                         $list[] = $row;
                     }
                     echo json_encode($list);

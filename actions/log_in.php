@@ -40,8 +40,8 @@
                 die();
             }
 
-            $check_existance_of_student_sql = "SELECT student_email, student_name FROM users_table WHERE user_id = $user_id";
-
+            $check_existance_of_student_sql = "SELECT student_email, student_name FROM users_table WHERE user_id = $id";
+            
             $result = $connect->query($check_existance_of_student_sql);
             if($result){
                 if ( $result->num_rows > 0 ){
