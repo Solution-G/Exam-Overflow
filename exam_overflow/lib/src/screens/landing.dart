@@ -13,7 +13,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        drawer: Sidebar(),
+        drawer: Sidebar(
+          home_context: context,
+        ),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 155, 164, 255),
           title: const Text(

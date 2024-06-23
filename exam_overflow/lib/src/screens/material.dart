@@ -73,6 +73,16 @@ class MyMaterialView extends State<MyMaterial> {
             ),
           ),
           child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color.fromARGB(255, 193, 72, 95),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  // Navigate back to the previous screen
+                  Navigator.pop(context);
+                },
+              ),
+            ),
             // This will set the scaffhold background transparent so that the background setted by the container will be visible
             backgroundColor: Colors.transparent,
             // to scroll for available exams Listed
@@ -94,65 +104,65 @@ class MyMaterialView extends State<MyMaterial> {
                           ));
                         } else {
                           return ListView.builder(
-                              itemCount: materials.length,
-                              itemBuilder: (context, index) {
-                                return Card(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    child: ListTile(
-                                      leading: Image(
-                                          image: AssetImage('assets/book.png')),
-                                      title: Text(
-                                        materials[index]['subject'],
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Color.fromARGB(
-                                                255, 193, 72, 95)),
-                                      ),
-                                      subtitle: Text(materials[index]['grade']),
-                                      trailing: downloading[index] ?? false
-                                          ? CircularProgressIndicator()
-                                          : ElevatedButton(
-                                              onPressed: () async {
-                                                if (await permissionRequest(
-                                                    Permission.storage)) {
-                                                  setState(() {
-                                                    downloading[index] = true;
-
-                                                    FileDownloader.downloadFile(
-                                                        url: materials[index]
-                                                            ['link'],
-                                                        onProgress:
-                                                            (value, progress) {
-                                                          ScaffoldMessenger.of(
-                                                                  context)
-                                                              .showSnackBar(SnackBar(
-                                                                  content: Text(
-                                                                      "Donwload has started")));
-                                                        },
-                                                        onDownloadCompleted:
-                                                            (val) {
-                                                          setState(() {
-                                                            downloading[index] =
-                                                                false;
-                                                            Fluttertoast.showToast(
-                                                                msg:
-                                                                    "Completed");
-                                                          });
-                                                        });
-                                                  });
-                                                } else {
-                                                  Fluttertoast.showToast(
-                                                      msg:
-                                                          'Permission is required');
-                                                }
-                                              },
-                                              child: Icon(Icons.download),
-                                            ),
+                            itemCount: materials.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: ListTile(
+                                    leading: Image(
+                                        image: AssetImage('assets/book.png')),
+                                    title: Text(
+                                      materials[index]['subject'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Color.fromARGB(255, 193, 72, 95)),
                                     ),
+                                    subtitle: Text(materials[index]['grade']),
+                                    trailing: downloading[index] ?? false
+                                        ? CircularProgressIndicator()
+                                        : ElevatedButton(
+                                            onPressed: () async {
+                                              if (await permissionRequest(
+                                                  Permission.storage)) {
+                                                setState(() {
+                                                  downloading[index] = true;
+
+                                                  FileDownloader.downloadFile(
+                                                      url: materials[index]
+                                                          ['link'],
+                                                      onProgress:
+                                                          (value, progress) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(SnackBar(
+                                                                content: Text(
+                                                                    "Donwload has started")));
+                                                      },
+                                                      onDownloadCompleted:
+                                                          (val) {
+                                                        setState(() {
+                                                          downloading[index] =
+                                                              false;
+                                                          Fluttertoast.showToast(
+                                                              msg: "Completed");
+                                                        });
+                                                      });
+                                                });
+                                              } else {
+                                                Fluttertoast.showToast(
+                                                    msg:
+                                                        'Permission is required');
+                                              }
+                                            },
+                                            child: Icon(Icons.download),
+                                          ),
                                   ),
-                                );
-                              });
+                                ),
+                              );
+                            },
+                          );
                         }
                       }),
                 )

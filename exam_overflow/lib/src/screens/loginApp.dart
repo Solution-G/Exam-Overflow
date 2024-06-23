@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:exam_overflow/src/database/database_connection.dart';
 import 'package:exam_overflow/src/screens/components.dart';
+import 'package:exam_overflow/src/screens/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,9 +38,9 @@ class _LogIn extends State<LogIn> {
         print(result.body);
         Map<String, dynamic> value = jsonDecode(result.body);
         if (value.containsKey('data')) {
-          saveData("email", email);
-          saveData("pass_key", password);
-          saveData("id", value["data"]["user_id"]);
+          saveData(Constant.USER_EMAIL_KEY, email);
+          saveData(Constant.USER_PASSWORD_KEY, password);
+          saveData(Constant.USER_ID_KEY, value["data"]["user_id"]);
           print(
               "--------------Saved ---------------------------------------------");
           return [true, value['data']];
@@ -47,7 +48,7 @@ class _LogIn extends State<LogIn> {
 
         return [false, Database.errors_and_message[value['error'][0]]];
       } else {
-        return [false, "Server is connected!"];
+        return [false, "Server is not connected!"];
       }
     } catch (e) {
       return [false, "Connection error!"];
@@ -63,8 +64,8 @@ class _LogIn extends State<LogIn> {
   Future<void> alreadyLoggedIn(BuildContext context) async {
     SharedPreferences shP = await sharedPref;
     print("--------------loaded-------------------------");
-    String? email = shP.getString("email");
-    String? password = shP.getString("pass_key");
+    String? email = shP.getString(Constant.USER_EMAIL_KEY);
+    String? password = shP.getString(Constant.USER_PASSWORD_KEY);
     if (email == null ||
         email.isEmpty ||
         password == null ||

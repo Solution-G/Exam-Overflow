@@ -1,9 +1,20 @@
+import 'package:exam_overflow/src/screens/contants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Sidebar extends StatelessWidget {
-  Sidebar({super.key});
+  BuildContext home_context;
+  Sidebar({super.key, required this.home_context});
+  Future<SharedPreferences> pref = SharedPreferences.getInstance();
+  Future<void> clearSharedPref(BuildContext context) async {
+    SharedPreferences pp = await pref;
+    pp.remove(Constant.USER_EMAIL_KEY);
+    pp.remove(Constant.USER_PASSWORD_KEY);
+    Navigator.pop(home_context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -60,9 +71,12 @@ class Sidebar extends StatelessWidget {
               title: Text("Feedback"),
             ),
             // The Log out
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.logout),
               title: Text("Log out"),
+              onTap: () async {
+                clearSharedPref(context);
+              },
             )
           ],
         ),

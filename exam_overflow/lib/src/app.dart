@@ -14,18 +14,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-        child: MaterialApp(
-      home: LogIn(),
-      routes: {
-        '/log_in': (context) => LogIn(),
-        '/sign_up': (context) => SignUp(),
-        '/home': (context) => Home(),
-        '/exam': (context) => Exam(),
-        '/material': (context) => MyMaterial(),
-        '/question': (context) => Question(),
-        '/help': (context) => Help(),
-        '/give_answer': (context) => Answer()
-      },
-    ));
+      child: MaterialApp(
+        title: 'My App',
+        initialRoute: '/',
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/':
+              return MaterialPageRoute(builder: (context) => LogIn());
+            case '/log_in':
+              return MaterialPageRoute(builder: (context) => LogIn());
+            case '/sign_up':
+              return MaterialPageRoute(builder: (context) => SignUp());
+            case '/home':
+              return MaterialPageRoute(builder: (context) => Home());
+            case '/exam':
+              return MaterialPageRoute(builder: (context) => Exam());
+            case '/material':
+              return MaterialPageRoute(builder: (context) => MyMaterial());
+            case '/question':
+              return MaterialPageRoute(builder: (context) => Question());
+            case '/help':
+              return MaterialPageRoute(builder: (context) => Help());
+            case '/give_answer':
+              final args = settings.arguments as Map<String, dynamic>;
+              return MaterialPageRoute(builder: (context) => Answer(args: args));
+            default:
+              return null;
+          }
+        },
+      ),
+    );
   }
 }

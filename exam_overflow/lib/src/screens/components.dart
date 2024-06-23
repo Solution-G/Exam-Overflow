@@ -179,11 +179,11 @@ class TopTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 60),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
       decoration: const BoxDecoration(
         color: Color.fromARGB(255, 193, 72, 95),
         borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(70), bottomLeft: Radius.circular(70)),
+            bottomRight: Radius.circular(30), bottomLeft: Radius.circular(30)),
         boxShadow: [
           BoxShadow(
               color: Colors.grey,
@@ -196,7 +196,7 @@ class TopTitle extends StatelessWidget {
         child: Text(
           title,
           style: const TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.white, fontSize: 40),
+              fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
         ),
       ),
     );

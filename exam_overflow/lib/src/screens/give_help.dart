@@ -70,6 +70,16 @@ class _Help extends State<Help> {
             ),
           ),
           child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color.fromARGB(255, 193, 72, 95),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  // Navigate back to the previous screen
+                  Navigator.pop(context);
+                },
+              ),
+            ),
             // This will set the scaffhold background transparent so that the background setted by the container will be visible
             backgroundColor: Colors.transparent,
             // to scroll for available exams Listed
@@ -135,6 +145,10 @@ class _Help extends State<Help> {
                                                 TextStyle(color: Colors.white),
                                           ),
                                         )),
+
+
+                                       
+
                                   ),
                                 );
                               });

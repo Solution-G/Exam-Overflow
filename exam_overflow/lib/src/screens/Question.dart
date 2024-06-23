@@ -77,10 +77,13 @@ class _Question extends State<Question> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 155, 164, 255),
-          title: const Text(
-            "Exam Overflow",
-            style: TextStyle(fontSize: 20, color: Colors.white),
+          backgroundColor: Color.fromARGB(255, 193, 72, 95),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              // Navigate back to the previous screen
+              Navigator.pop(context);
+            },
           ),
         ),
         body: Container(
@@ -94,6 +97,7 @@ class _Question extends State<Question> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                TopTitle(title: "Ask Question"),
                 Input(
                   label: "Topic",
                   controller: topic_control,
