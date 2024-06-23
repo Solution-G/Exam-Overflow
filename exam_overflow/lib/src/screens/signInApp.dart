@@ -17,6 +17,15 @@ class SignUp extends StatelessWidget {
   final password_input_controller = TextEditingController();
   Future<List<dynamic>> registerOnMysql(
       String name, String email, String password) async {
+    if (name.isEmpty) {
+      return [false, "Name input is empty"];
+    }
+    if (!email.contains('@') || email.length <= 9) {
+      return [false, "Check your rmail input"];
+    }
+    if (password.length < 4) {
+      return [false, "Password atleast must be more than 4"];
+    }
     Map<String, dynamic> result = {};
     try {
       final registry = await http.post(Uri.parse(Database.sign_up),

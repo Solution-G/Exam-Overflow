@@ -1,6 +1,7 @@
 import 'package:exam_overflow/src/blocs/provider.dart';
 import 'package:exam_overflow/src/screens/ExamPage.dart';
 import 'package:exam_overflow/src/screens/Question.dart';
+import 'package:exam_overflow/src/screens/See_answers.dart';
 import 'package:exam_overflow/src/screens/components.dart';
 import 'package:exam_overflow/src/screens/give_answer.dart';
 import 'package:exam_overflow/src/screens/give_help.dart';
@@ -42,6 +43,10 @@ class MyApp extends StatelessWidget {
               final args = settings.arguments as Map<String, dynamic>;
               return MaterialPageRoute(
                   builder: (context) => Answer(args: args));
+            case '/see_answer':
+              final args = settings.arguments as Map<String, dynamic>;
+              return MaterialPageRoute(
+                  builder: (context) => SeeAnswer(args: args));
             default:
               return null;
           }

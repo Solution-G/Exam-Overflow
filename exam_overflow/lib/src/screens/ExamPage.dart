@@ -16,12 +16,12 @@ class Exam extends StatefulWidget {
   }
 }
 
-class MyExam extends State<Exam> with AutomaticKeepAliveClientMixin<Exam> {
+class MyExam extends State<Exam> {
   List<dynamic> exams = [];
   bool display = false;
   Map<int, String> checked = {};
-  int timer = 0;
-  Timer? overTime;
+  int _secondsRemaining = 5; // 60 seconds countdown
+  late Timer _timer;
   Future<List<dynamic>> load_exams() async {
     try {
       var result =
@@ -42,10 +42,8 @@ class MyExam extends State<Exam> with AutomaticKeepAliveClientMixin<Exam> {
   }
 
   @override
-  bool get wantKeepAlive => true;
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
+    //super.build(context);
     return Container(
       decoration: const BoxDecoration(color: Color.fromARGB(255, 193, 72, 95)),
       child: SafeArea(
@@ -64,7 +62,10 @@ class MyExam extends State<Exam> with AutomaticKeepAliveClientMixin<Exam> {
               backgroundColor: const Color.fromARGB(255, 155, 164, 255),
               actions: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Fluttertoast.showToast(msg: "Exited");
+                    Navigator.pop(context);
+                  },
                   style: ButtonStyle(
                       backgroundColor: WidgetStateColor.transparent,
                       elevation: WidgetStateProperty.all(0)),
@@ -73,7 +74,7 @@ class MyExam extends State<Exam> with AutomaticKeepAliveClientMixin<Exam> {
               ],
               leading: Center(
                   child: Text(
-                "00:00",
+                "30:00",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               )),
               shadowColor: Colors.black,

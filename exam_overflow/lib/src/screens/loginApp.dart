@@ -30,6 +30,12 @@ class _LogIn extends State<LogIn> {
 
   // This is the function that is going to be called whenever the login button is clicked
   Future<List> log_in(String email, String password) async {
+    if (!email.contains('@') || email.length <= 9) {
+      return [false, "Check your rmail input"];
+    }
+    if (password.length < 4) {
+      return [false, "Password atleast must be more than 4"];
+    }
     try {
       final result = await http.post(Uri.parse(Database.log_in),
           body: {"student_email": email, "student_password": password});
@@ -48,10 +54,13 @@ class _LogIn extends State<LogIn> {
 
         return [false, Database.errors_and_message[value['error'][0]]];
       } else {
-        return [false, "Server is not connected!"];
+        return [
+          false,
+          Database.errors_and_message[Database.CONNECTION_PROBLEM]
+        ];
       }
     } catch (e) {
-      return [false, "Connection error!"];
+      return [false, Database.errors_and_message[Database.CONNECTION_PROBLEM]];
     }
   }
 

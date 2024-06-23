@@ -59,6 +59,7 @@ class _Solution extends State<Solution> {
     return [];
   }
 
+  final _scrollKey = new GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -110,6 +111,7 @@ class _Solution extends State<Solution> {
                           );
                         } else {
                           return ListView.builder(
+                              key: _scrollKey,
                               itemCount: questions.length,
                               itemBuilder: (context, index) {
                                 return Card(
@@ -137,9 +139,9 @@ class _Solution extends State<Solution> {
                                                 255, 85, 136, 212),
                                           ),
                                           onPressed: () {
-                                            //Navigator.pushNamed(
-                                            //   context, '/give_answer',
-                                            //  arguments: questions[index]);
+                                            Navigator.pushNamed(
+                                                context, '/see_answer',
+                                                arguments: questions[index]);
                                           },
                                           child: Text(
                                             "See",
