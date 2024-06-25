@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 class Exam extends StatefulWidget {
   Exam({super.key});
 
+
   @override
   State<StatefulWidget> createState() {
     return MyExam();
@@ -17,11 +18,13 @@ class Exam extends StatefulWidget {
 }
 
 class MyExam extends State<Exam> {
+    
   List<dynamic> exams = [];
   bool display = false;
   Map<int, String> checked = {};
   int _secondsRemaining = 5; // 60 seconds countdown
   late Timer _timer;
+
   Future<List<dynamic>> load_exams() async {
     try {
       var result =
@@ -120,7 +123,7 @@ class MyExam extends State<Exam> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         for (String choise in exams[index]
-                                                ["choise"]
+                                                ["choice"]
                                             .split('##'))
                                           RadioListTile<String>(
                                             value: choise,
@@ -154,7 +157,7 @@ class MyExam extends State<Exam> {
                     onPressed: () {
                       int answer = 0;
                       for (int i = 0; i < 30; i++) {
-                        List choise = exams[i]['choises'].split('##');
+                        List choise = exams[i]['choice'].split('##');
                         if (choise.indexOf(checked[i]) ==
                             exams[i]['answer'].codeUnitAt(0) -
                                 "A".codeUnitAt(0)) {
