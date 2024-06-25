@@ -20,7 +20,7 @@
                 die();
             }
 
-            $check_existance_of_student_sql = "SELECT user_id, student_email, student_password, student_grade FROM users_table WHERE student_email = '$student_email' AND student_password = '$student_password'";
+            $check_existance_of_student_sql = "SELECT user_id, student_name, student_email, student_password, student_grade FROM users_table WHERE student_email = '$student_email' AND student_password = '$student_password'";
 
             $result = $connect->query($check_existance_of_student_sql);
             if($result){
