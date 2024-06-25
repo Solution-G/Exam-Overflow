@@ -71,7 +71,7 @@
 
 
 
-<p>Overall, the scope of the project focuses on developing an application that enhances exam preparation, provides personalized recommendations, fosters question discussions, and offers motivational resources, with the goal of supporting students in their academic pursuits and reducing the number of exam failures.</p>
+
 
 <h1>Limitation</h1>
 
