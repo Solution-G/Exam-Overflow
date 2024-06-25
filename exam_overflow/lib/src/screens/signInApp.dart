@@ -1,8 +1,13 @@
 // ignore: file_names
+import 'dart:convert';
+
 import 'package:exam_overflow/src/blocs/provider.dart';
+import 'package:exam_overflow/src/database/database_connection.dart';
 import 'package:exam_overflow/src/screens/components.dart';
 import 'package:exam_overflow/src/screens/loginApp.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});
@@ -10,7 +15,35 @@ class SignUp extends StatelessWidget {
   final email_input_controller = TextEditingController();
   final verification_input_controller = TextEditingController();
   final password_input_controller = TextEditingController();
-  void log_in() {}
+  Future<List<dynamic>> registerOnMysql(
+      String name, String email, String password) async {
+    if (name.isEmpty) {
+      return [false, "Name input is empty"];
+    }
+    if (!email.contains('@') || email.length <= 9) {
+      return [false, "Check your rmail input"];
+    }
+    if (password.length < 4) {
+      return [false, "Password atleast must be more than 4"];
+    }
+    Map<String, dynamic> result = {};
+    try {
+      final registry = await http.post(Uri.parse(Database.sign_up),
+          body: {'name': name, 'email': email, "password": password});
+      if (registry.statusCode == 200) {
+        print(registry.body);
+        result = jsonDecode(registry.body);
+        if (result.containsKey("error")) {
+          return [false, Database.errors_and_message[result['error'][0]]];
+        }
+        return [true, ''];
+      } else {
+        return [false, Database.errors_and_message[102]];
+      }
+    } catch (e) {
+      return [false, "Connection error"];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,36 +85,34 @@ class SignUp extends StatelessWidget {
 
                       Container(
                         padding: const EdgeInsets.all(20),
-                        child: NameInput(bloc),
+                        child: NameInput(bloc, user_name_controller),
                       ),
 
                       Container(
                         padding: const EdgeInsets.all(20),
-                        child: EmailInput(bloc),
+                        child: EmailInput(bloc, email_input_controller),
                       ),
 
                       Container(
                         padding: const EdgeInsets.all(20),
-                        child: PasswordInput(bloc),
+                        child: PasswordInput(bloc, password_input_controller),
                       ),
 
-                      // // This input feild is to accept the email of user
-                      // InputFeild(
-                      //     controller: email_input_controller,
-                      //     hint: "Email",
-                      //     obscureHInt: false),
+                      Button(
+                          onTap: () async {
+                            var request = await registerOnMysql(
+                                user_name_controller.text,
+                                email_input_controller.text,
+                                password_input_controller.text);
+                            if (request[0] == true) {
+                              Fluttertoast.showToast(msg: "Success !");
+                              Navigator.pop(context);
+                            } else {
+                              Fluttertoast.showToast(msg: request[1]);
+                            }
+                          },
+                          input: "Sign Up"),
 
-                      // // this input feild is to accept users verification
-                      // InputFeild(
-                      //     controller: verification_input_controller,
-                      //     hint: "Verification",
-                      //     obscureHInt: false),
-                      // // This input feild is for password
-                      // InputFeild(
-                      //     controller: password_input_controller,
-                      //     hint: "Password",
-                      //     obscureHInt: true),
-                      // this is to navigate back to user
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
