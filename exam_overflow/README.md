@@ -10,7 +10,7 @@
 
 <h1>Statement of the Problem</h1>
 
-<p>The problem that many students face challenges in effectively preparing for exams, leading to unsatisfactory results and a high rate of exam failure. These challenges include:</p>
+<p>The problem that many students face challenges in effectively preparing for exams and  leading to unsatisfactory results and a high rate of exam failure. These challenges include:</p>
 
 <p>1. Lack of effective exam preparation: Many students struggle to organize their exam preparation efforts, resulting in an inefficient approach. They may not have access to comprehensive self-accessing materials or guidance on how to structure their study time effectively.</p>
 
@@ -22,7 +22,7 @@
 
 <h1>Motivation</h1>
 
-<p>The motivation behind this project is to decrease the number of students who fail exams. Failing an exam can have a detrimental impact on students' academic progress, self-confidence, and future opportunities. We believe that every student deserves a fair chance to succeed and that with the right support and resources, they can overcome challenges and achieve their academic goals.</p>
+<p>The motivation behind this project is to decrease number of students who fail exams. Failing an exam can have a detrimental impact on students' academic progress, self-confidence, and future opportunities. We believe that every student deserves a fair chance to succeed and that with the right support and resources, they can overcome challenges and achieve their academic goals.</p>
 
 <p>By developing an application that offers comprehensive exam preparation resources, personalized topic improvement recommendations, collaborative question discussions, and motivational resources, we aim to provide students with the necessary tools and support to increase their chances of success.</p>
 
